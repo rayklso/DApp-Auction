@@ -1,16 +1,20 @@
 pragma solidity ^0.5.0;
 
 contract Auction {
-    // Read/write item
+    
     
     struct Item {
-        uint id;
-        string name;
-        string imgPath;
+        uint id;                            //Item's ID
+        string name;                        //Item's name
+        string imgPath;                     //Item's image path
+        bool inProgress;                    //Is auction in progress
+        
+        address owner;
         uint askingPrice;
-        uint bidPrice;
+        
         address highestBidder;
-        bool inProgress;
+        uint bidPrice;
+        
     }
     
     uint public itemsCount;
@@ -19,13 +23,22 @@ contract Auction {
     
     // Constructor
     constructor() public {
-        addItem("Item 1", "imgPath", 1000);
-        addItem("Item 2", "imgPath", 2000);
+        addItem("IPhone X", "img/i1.png", 1000);
+        addItem("Watch", "img/i2.png", 2000);
     }
-    
+
+    modifier onlyOwner(uint _id) {
+        require (msg.sender != items[_id].owner);
+        _;
+    }
+
     function addItem(string memory _name, string memory _imgPath, uint _askingPrice) public {
         itemsCount ++;
-        items[itemsCount] = Item(itemsCount, _name, _imgPath, _askingPrice, 0, address(0), true);
+        items[itemsCount] = Item(itemsCount, _name, _imgPath, true, msg.sender, _askingPrice, address(0), 0);
+    }
+    
+    function closeBid(uint _id) onlyOwner(_id) public{
+        items[_id].inProgress = false;
     }
     
     function bid(uint _id, uint _bidPrice) public{
