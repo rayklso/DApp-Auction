@@ -1,9 +1,8 @@
 
 var dApp = angular.module("myApp", []);
 dApp.service('mySev', function($q) {
+     
     var deferred = $q.defer();
-    
-    var p1 = [$q.defer(), $q.defer()];
     
     App = {
       web3Provider: null,
@@ -51,92 +50,44 @@ dApp.service('mySev', function($q) {
 
             // Load contract data
           
+            var deferredItems = [];
+          
             App.contracts.Auction.deployed().then(function(instance) {
                 auctionInstance = instance;
                 return auctionInstance.itemsCount();
             }).then(function(itemsCount) {
-
-
-                itemArr = [];
                
                 for (var i = 1; i <= itemsCount; i++) {
+                    deferredItems.push($q.defer());
+                    var j = 0;
                     auctionInstance.items(i).then(function(item) {
-                        itemArr.push({
+                        
+                        deferredItems[j++].resolve({
                             id: item[0],
                             name: item[1],
                             imgPath: item[2],
                             inProgress: item[3],
                             askingPrice: item[5],
                             bidPrice: item[7]
-                        });
-
-
-
-                            p1[i].resolve(itemArr);
-
+                        });                  
+        
                     });
                 }
-             
-           /*     $q.all([f]).then(function(result){
-
-                        console.log(result)
-
-
-
-
-                });*/
-
-
-         /*       deferred.promise.then(function(t){
-                     console.log(t)
-                });*/
-
-
-
-
+                
+                deferred.resolve(deferredItems)
+                
             }).catch(function(error) {
               console.warn(error);
             });
-          
-          
-     /*       deferred.promise.then(function(ee){
-               console.log(ee)
-            })*/
-      //      return deferred.promise;
          
       }
     };
     
     App.init();
- /*   deferred.promise.then(function(ee){
-       console.log(ee[1])
-    });*/
-    $q.all(p1).then(function(ere){
-        ere.promise.then(function(haha){
-            console.log(haha)
-        })
-    })
-    
-    var items = [{
-        link: "img0/tm-img-01.jpg",
-        title: "Image One",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    },{
-        link: "img0/tm-img-02.jpg",
-        title: "Image two",
-        description: "Maecenas purus sem, lobortis id odio in sapien."
-    },{
-        link: "img0/tm-img-03.jpg",
-        title: "Image Three",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    },{
-        link: "img0/tm-img-04.jpg",
-        title: "Image Four",
-        description: "Maecenas purus sem, lobortis id odio in sapien."
-    }];
-    
+     
     
     this.getItems = function(){
-        return items;
+        return deferred.promise;
+  
     }
 });
