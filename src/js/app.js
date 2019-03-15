@@ -1,4 +1,3 @@
-
 var dApp = angular.module("myApp", []);
 dApp.service('mySev', function($q) {
      
@@ -56,10 +55,11 @@ dApp.service('mySev', function($q) {
                 auctionInstance = instance;
                 return auctionInstance.itemsCount();
             }).then(function(itemsCount) {
+                var j = 0;
                
                 for (var i = 1; i <= itemsCount; i++) {
                     deferredItems.push($q.defer());
-                    var j = 0;
+                    
                     auctionInstance.items(i).then(function(item) {
                         
                         deferredItems[j++].resolve({

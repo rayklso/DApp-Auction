@@ -9,6 +9,7 @@ dApp.controller("myCtrl", function($scope, mySev) {
                     path: item.imgPath,
                     title: item.name
                 });
+                
             });
         }
         
