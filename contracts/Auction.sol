@@ -2,7 +2,6 @@ pragma solidity ^0.5.0;
 
 contract Auction {
     
-    
     struct Item {
         uint id;                            //Item's ID
         string name;                        //Item's name
@@ -24,8 +23,8 @@ contract Auction {
     
     // Constructor
     constructor() public {
-        addItem("IPhone X", "img/i1.png", 1000);
-        addItem("Watch", "img/i2.png", 2000);
+        addItem("IPhone X", "img/i1.png", 1000, 100);
+        addItem("Watch", "img/i2.png", 2000, 100);
     }
 
     modifier onlyOwner(uint _id) {
