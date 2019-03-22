@@ -11,6 +11,7 @@ contract Auction {
         
         address owner;
         uint askingPrice;
+        uint updatePrice;
         
         address highestBidder;
         uint bidPrice;
@@ -32,21 +33,21 @@ contract Auction {
         _;
     }
 
-    function addItem(string memory _name, string memory _imgPath, uint _askingPrice) public {
+    function addItem(string memory _name, string memory _imgPath, uint _askingPrice, uint _updatePrice) public {
         itemsCount ++;
-        items[itemsCount] = Item(itemsCount, _name, _imgPath, true, msg.sender, _askingPrice, address(0), 0);
+        items[itemsCount] = Item(itemsCount, _name, _imgPath, true, msg.sender, _askingPrice, _updatePrice, address(0), _askingPrice);
     }
     
     function closeBid(uint _id) onlyOwner(_id) public{
         items[_id].inProgress = false;
     }
     
-    function bid(uint _id, uint _bidPrice) public{
+    function bid(uint _id) public{
     
         require(items[_id].inProgress);
-        require(_bidPrice > items[_id].askingPrice && _bidPrice > items[_id].bidPrice);
+        //require(_bidPrice > items[_id].askingPrice && _bidPrice > items[_id].bidPrice);
         
-        items[_id].bidPrice = _bidPrice;
+        items[_id].bidPrice += items[_id].updatePrice;
         items[_id].highestBidder = msg.sender;
     
     }
