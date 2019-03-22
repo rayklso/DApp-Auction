@@ -26,7 +26,7 @@
 
       
   </head>
-  <body ng-app="myApp" ng-controller="myCtrl">
+  <body ng-app="dApp">
       
       <div class="cd-hero">
           
@@ -62,7 +62,7 @@
        <ul class="cd-hero-slider">
 
                 <!-- Page 1 Gallery One -->
-                <li class="selected">                    
+                <li ng-controller="pageOneCtrl" class="selected">                    
                     <div class="cd-full-width">
                         <div class="container-fluid js-tm-page-content" data-page-no="1" data-page-type="gallery">
                             <div class="tm-img-gallery-container">
@@ -93,7 +93,7 @@
                 </li>
 
                 <!-- Page 2 Gallery Two -->
-                <li>                    
+                <li ng-controller="pageTwoCtrl" >                    
                     <div class="cd-full-width">
                         <div class="container-fluid js-tm-page-content" data-page-no="2" data-page-type="gallery">
                             <div class="tm-img-gallery-container">
@@ -105,126 +105,12 @@
                                         <p class="tm-text"><span class="tm-white">Etiam gravida et elit vitae maximus. Pellentesque fringilla felis id feugiat consectetur. Sed quis commodo leo. Nunc aliquet auctor nunc, sit amet pharetra metus commodo ut.</span>
                                         </p>
                                     </div>
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-12-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>One</span></h2>
-                                                <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                                                <a href="img0/tm-img-12.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-11-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Two</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-11.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-10-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Three</span></h2>
-                                                <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                                                <a href="img0/tm-img-10.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-09-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Four</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-09.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-08-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Five</span></h2>
-                                                <p class="tm-figure-description">Suspendisse id placerat risus. Mauris quis luctus risus.</p>
-                                                <a href="img0/tm-img-08.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-07-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Six</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-07.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>  
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Seven</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-06.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>  
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Eight</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-05.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>  
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Nine</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-04.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>  
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Ten</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-03.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>  
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Eleven</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-02.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>  
-                                    <div class="grid-item">
-                                        <figure class="effect-bubba">
-                                            <img src="img0/tm-img-01-tn.jpg" alt="Image" class="img-fluid tm-img">
-                                            <figcaption>
-                                                <h2 class="tm-figure-title">Picture <span>Twelve</span></h2>
-                                                <p class="tm-figure-description">Maecenas purus sem, lobortis id odio in sapien.</p>
-                                                <a href="img0/tm-img-01.jpg">View more</a>
-                                            </figcaption>           
-                                        </figure>
-                                    </div>  
+                                    
+                                    <div>
+                                        <input type="image" src="{{auctionImg}}" alt="Image" class="img-fluid tm-img" data-toggle="modal" data-target="#itemFormModel">
+                                        <h2 class="tm-figure-title">Click to create new auction.</h2>
+                                    </div>                           
+                                      
                                 </div>                                 
                             </div>
                         </div>                      
@@ -335,6 +221,52 @@
             
           
     </div> <!-- .cd-hero -->
+      
+      
+    
+    <!-- The Modal -->
+    <div ng-controller="pageTwoCtrl" class="modal" id="itemFormModel">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">New Auction item</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <label>Name:
+                    <input size="35" type="text" name="input" ng-model="item.name" ng-pattern="item.word" placeholder="Please enter item's name." required>
+                </label>
+                <label>Description:
+                    <textarea rows="4" cols="50" ng-model="item.description" placeholder="Please write down your item's description."></textarea>
+                </label>
+                <label>Asking Price:
+                    <input size="35" type="number" name="input" ng-model="item.askingPrice" placeholder="Please enter asking price." required>
+                </label>
+                <label>
+                    Please select the amount of price increased per bid:
+                    <div ng-repeat="a in amountOptions" class="radio">
+                        <label><input type="radio" name="optradio" ng-model="item.updatePrice" value="{{a}}">{{a}}</label>
+                    </div>
+                </label>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="newAuction()">Create</button>
+                <button type="button" class="btn btn-default" ng-click="clear()">Clear</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+
+          </div>
+        </div>
+    </div>  
+      
+      
       
       <p id="accountAddress" class="text-center"></p>
  

@@ -22,23 +22,23 @@ dApp.service('mySev', function($q) {
                 App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
                 web3 = new Web3(App.web3Provider);
             }
-  //          return App.initContract();
+            return App.initContract();
         },
 
-        initContract: function(render) {
+        initContract: function() {
             $.getJSON("Auction.json", function(auction) {
                 // Instantiate a new truffle contract from the artifact
                 App.contracts.Auction = TruffleContract(auction);
                 // Connect provider to interact with contract
                 App.contracts.Auction.setProvider(App.web3Provider);
-
-                return render();
                 
+                App.listenForEvents();
                 
+                return App.render();
             });
         },
 
-        display: function() {
+        render: function() {
             var auctionInstance;
 
             // Load account data
@@ -67,10 +67,12 @@ dApp.service('mySev', function($q) {
                         deferredItems[j++].resolve({
                             id: item[0],
                             name: item[1],
-                            imgPath: item[2],
-                            inProgress: item[3],
-                            askingPrice: item[5],
-                            bidPrice: item[7]
+                            description: item[2],
+                            imgPath: item[3],
+                            inProgress: item[4],
+                            askingPrice: item[6],
+                            updatePrice: item[7],
+                            bidPrice: item[9]
                         });                  
 
                     });
@@ -79,18 +81,55 @@ dApp.service('mySev', function($q) {
                 deferred.resolve(deferredItems)
 
             }).catch(function(error) {
-              console.warn(error);
+                console.warn(error);
             });
+        },
+        
+        listenForEvents: function() {
+            App.contracts.Auction.deployed().then(function(instance) {
+                instance.addItemEvent({}, {
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                }).watch(function(error, event) {
+                    console.log("event triggered", event)
+                // Reload when a new vote is recorded
+                    App.render();
+                    
+                });
+            });
+        },
+        
+        
+        newItem: function(_item) {
+            
+            App.contracts.Auction.deployed().then(function(instance) {
+                return instance.newItem(_item.name, _item.description, "img/i1.png", _item.askingPrice, _item.updatePrice , { from: App.account, gas:3000000 });
+            }).then(function(result) {
 
+            }).catch(function(error) {
+                console.warn(error);
+            });
+            
+            
         }
     };
     
     App.init();
-    App.initContract(App.display);
-     
     
-    this.getItems = function(){
+     
+    return {
+        getItems: function() {
+            return deferred.promise;
+        },
+        newItem: function(_item) {
+            App.newItem(_item);
+        }
+    };
+    
+    
+    
+ /*   this.getItems = function(){
         return deferred.promise;
-  
-    }
+    }*/
+    
 });
