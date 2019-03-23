@@ -25,8 +25,8 @@ contract Auction {
     
     // Constructor
     constructor() public {
-        addItem("IPhone X", "IPhone X", "img/i1.png", 1000, 100);
-        addItem("Watch", "Watch", "img/i2.png", 2000, 100);
+        addItem("IPhone X", "IPhone X", "img/i1.png", address(0), 1000, 100);
+        addItem("Watch", "Watch", "img/i2.png", address(0), 2000, 100);
     }
 
     modifier onlyOwner(uint _id) {
@@ -34,9 +34,9 @@ contract Auction {
         _;
     }
 
-    function addItem(string memory _name, string memory _description, string memory _imgPath, uint _askingPrice, uint _updatePrice) private {
+    function addItem(string memory _name, string memory _description, string memory _imgPath, address _owner, uint _askingPrice, uint _updatePrice) private {
         itemsCount ++;
-        items[itemsCount] = Item(itemsCount, _name, _description, _imgPath, true, msg.sender, _askingPrice, _updatePrice, address(0), _askingPrice);
+        items[itemsCount] = Item(itemsCount, _name, _description, _imgPath, true, _owner, _askingPrice, _updatePrice, address(0), _askingPrice);
     }
     
     function closeBid(uint _id) onlyOwner(_id) public{
@@ -53,7 +53,7 @@ contract Auction {
     
     }
     function newItem(string memory _name, string memory _description, string memory _imgPath, uint _askingPrice, uint _updatePrice) public {
-        addItem(_name, _description, _imgPath, _askingPrice, _updatePrice);
+        addItem(_name, _description, _imgPath, msg.sender, _askingPrice, _updatePrice);
         emit addItemEvent();
     }
 }

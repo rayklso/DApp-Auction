@@ -103,7 +103,7 @@ dApp.service('mySev', function($q) {
         newItem: function(_item) {
             
             App.contracts.Auction.deployed().then(function(instance) {
-                return instance.newItem(_item.name, _item.description, "img/i1.png", _item.askingPrice, _item.updatePrice , { from: App.account, gas:3000000 });
+                return instance.newItem(_item.name, _item.description, _item.path , _item.askingPrice, _item.updatePrice , { from: App.account, gas:3000000 });
             }).then(function(result) {
 
             }).catch(function(error) {

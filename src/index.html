@@ -227,42 +227,47 @@
     <!-- The Modal -->
     <div ng-controller="pageTwoCtrl" class="modal" id="itemFormModel">
         <div class="modal-dialog">
-          <div class="modal-content">
+            <form class="modal-content" ng-submit="newAuction()">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">New Auction item</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        New Auction item 
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </h4>
+                </div>
 
-            <!-- Modal body -->
-            <div class="modal-body">
-                <label>Name:
-                    <input size="35" type="text" name="input" ng-model="item.name" ng-pattern="item.word" placeholder="Please enter item's name." required>
-                </label>
-                <label>Description:
-                    <textarea rows="4" cols="50" ng-model="item.description" placeholder="Please write down your item's description."></textarea>
-                </label>
-                <label>Asking Price:
-                    <input size="35" type="number" name="input" ng-model="item.askingPrice" placeholder="Please enter asking price." required>
-                </label>
-                <label>
-                    Please select the amount of price increased per bid:
-                    <div ng-repeat="a in amountOptions" class="radio">
-                        <label><input type="radio" name="optradio" ng-model="item.updatePrice" value="{{a}}">{{a}}</label>
-                    </div>
-                </label>
-            </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label>Name:
+                        <input size="35" type="text" name="input" ng-model="item.name" placeholder="Please enter item's name." required>
+                    </label>
+                    <label>Description:
+                        <textarea rows="4" cols="50" ng-model="item.description" placeholder="Please write down your item's description."></textarea>
+                    </label>
+                    <label>Image Path:
+                        <input size="35" type="text" name="input" ng-model="item.path" placeholder="Please enter item's image path." required>
+                    </label>
+                    <label>Asking Price:
+                        <input size="35" type="number" min="0" name="input" ng-model="item.askingPrice" placeholder="Please enter asking price." required>
+                    </label>
+                    <label>
+                        Please select the amount of price increased per bid:
+                        <div ng-repeat="a in amountOptions" class="radio">
+                            <label><input type="radio" name="optradio" ng-model="item.updatePrice" value="{{a}}">{{a}}</label>
+                        </div>
+                    </label>
+                </div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" ng-click="newAuction()">Create</button>
-                <button type="button" class="btn btn-default" ng-click="clear()">Clear</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-info" id="submit" value="Create">
+                    <button type="button" class="btn btn-default" ng-click="clear()">Clear</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
 
 
-          </div>
+            </form>
         </div>
     </div>  
       

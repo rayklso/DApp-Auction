@@ -24,17 +24,16 @@ dApp.controller("pageOneCtrl", function($scope, mySev) {
         $scope.item = {
             name: "",
             description: "",
-            word: /^\s*\w*\s*$/,
+            path: "img/i1.png",
             askingPrice: 0,
             updatePrice: $scope.amountOptions[0]
         }   
     }
     emptyItem();
-    
   
     $scope.newAuction = function() {
+        $scope.item.updatePrice = parseInt($scope.item.updatePrice);
         mySev.newItem($scope.item);
-        emptyItem();
         window.location.reload();
     }
     $scope.clear = function() {
