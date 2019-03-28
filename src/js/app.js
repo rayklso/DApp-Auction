@@ -1,7 +1,7 @@
 var dApp = angular.module("dApp", []);
 dApp.service('mySev', function($q) {
      
-    var deferred = $q.defer();
+    var renderDeferred = $q.defer();
     
     App = {
         web3Provider: null,
@@ -78,7 +78,7 @@ dApp.service('mySev', function($q) {
                     });
                 }
 
-                deferred.resolve(deferredItems)
+                renderDeferred.resolve(deferredItems)
 
             }).catch(function(error) {
                 console.warn(error);
@@ -87,7 +87,7 @@ dApp.service('mySev', function($q) {
         
         listenForEvents: function() {
             App.contracts.Auction.deployed().then(function(instance) {
-                instance.addItemEvent({}, {
+                instance.itemEvent({}, {
                     fromBlock: 0,
                     toBlock: 'latest'
                 }).watch(function(error, event) {
@@ -110,26 +110,63 @@ dApp.service('mySev', function($q) {
                 console.warn(error);
             });
             
+        },
+ 
+        itemStatus: function(_itemId, deferred) {
+            
+            App.contracts.Auction.deployed().then(function(instance) {
+                return instance.items(_itemId)
+            }).then(function(item) {
+                deferred.resolve({
+                    inProgress: item[4],
+                    bidPrice: item[9]
+                });     
+            }).catch(function(error) {
+                console.warn(error);
+            });
+            
+        },
+        
+        bidItem: function(_itemId, deferred) {
+            
+            App.contracts.Auction.deployed().then(function(instance) {
+                instance.bidItem(_itemId, { from: App.account });
+                return instance.items(_itemId)
+            }).then(function(item) {
+                deferred.resolve(item[9]);
+            }).catch(function(error) {
+                console.warn(error);
+            });
             
         }
+        
     };
     
     App.init();
-    
-     
+       
     return {
+        
         getItems: function() {
-            return deferred.promise;
+            return renderDeferred.promise;
         },
+        
         newItem: function(_item) {
-            App.newItem(_item);
+            App.newItem(_item);       
+        },
+        
+        itemStatus: function(_itemId) {
+            var deferred = $q.defer();
+            App.itemStatus(_itemId, deferred);
+            return deferred.promise;            
+        },
+        
+        bidItem: function(_itemId) {
+            var deferred = $q.defer();
+            App.bidItem(_itemId, deferred);
+            return deferred.promise;
         }
+        
     };
     
-    
-    
- /*   this.getItems = function(){
-        return deferred.promise;
-    }*/
     
 });

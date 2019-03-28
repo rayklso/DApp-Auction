@@ -1,22 +1,42 @@
 dApp.controller("pageOneCtrl", function($scope, mySev) {
 
     $scope.items = [];
+ 
     mySev.getItems().then(function(dItems){
         
         for(var i=0; i<dItems.length; i++){
             dItems[i].promise.then(function(item){
                
                 $scope.items.push({
+                    id: item.id.c[0],
                     path: item.imgPath,
-                    title: item.name
+                    name: item.name,
+                    desc: item.description,
+                    askingPrice: item.askingPrice,
+                    updatePrice: item.updatePrice
                 });
                 
             });
         }
     });
+    
+    $scope.show = function(i) {
+        $scope.ind = i;
+        mySev.itemStatus($scope.items[i].id).then(function(item){   
+            $scope.bidPrice = item.bidPrice.c[0];
+        });  
+    }
+        
+    $scope.bid = function() {
+        mySev.bidItem($scope.items[$scope.ind].id).then(function(bidPrice){
+            $scope.bidPrice = bidPrice.c[0];
+        });     
+    }    
 
-}).controller("pageTwoCtrl", function($scope, mySev) {
 
+//page two
+    
+    
     $scope.auctionImg = "img/auction.png";    
     $scope.amountOptions = ["10", "50", "100", "500", "1000", "5000", "10000"];
 
