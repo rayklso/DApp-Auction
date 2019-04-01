@@ -3,7 +3,7 @@ pragma solidity ^0.5.0;
 // ----------------------------------------------------------------------------
 // 'bid' CROWDSALE token contract
 //
-// Deployed to : 0x704f35e6a8F538d8D0c1003000fd1fD295deDb6F
+// Deployed to : 0x704f35e6a8f538d8d0c1003000fd1fd295dedb6f
 // Symbol      : BID
 // Name        : Bid Token
 // Total supply: Gazillion
