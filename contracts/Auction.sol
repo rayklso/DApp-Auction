@@ -1,5 +1,7 @@
 pragma solidity ^0.5.0;
 
+import "./BidToken.sol";
+
 contract Auction {
     
     struct Item {
@@ -20,6 +22,7 @@ contract Auction {
     
     uint public itemsCount;
     mapping(uint => Item) public items;
+    
     
     event itemEvent ();
     
@@ -61,7 +64,13 @@ contract Auction {
     
     }
     
-
+    function transferBidToken(uint _id) public {
+        require(msg.sender == items[_id].highestBidder);
+        require(!items[_id].inProgress);
+        
+        BidToken b;
+        b.transfer(items[_id].owner, items[_id].bidPrice);
+    }
     
     
 }
