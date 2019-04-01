@@ -9,9 +9,10 @@ dApp.controller("pageOneCtrl", function($scope, mySev) {
                
                 $scope.items.push({
                     id: item.id.c[0],
-                    path: item.imgPath,
+                    path: item.path,
                     name: item.name,
                     desc: item.description,
+                    isOwner: item.isOwner,
                     askingPrice: item.askingPrice,
                     updatePrice: item.updatePrice
                 });
@@ -20,12 +21,25 @@ dApp.controller("pageOneCtrl", function($scope, mySev) {
         }
     });
     
+    AuctionItem = {
+        submitText: "Bid",
+        submitFun: null
+    }
+    
+    myItem = {
+        submitText: "Close Bid",
+        submitFun: null
+    }
+    
+    $scope.itemPopup = {}
+    
     $scope.show = function(i) {
         $scope.ind = i;
         mySev.itemStatus($scope.items[i].id).then(function(item){   
             $scope.bidPrice = item.bidPrice.c[0];
         });  
     }
+
         
     $scope.bid = function() {
         mySev.bidItem($scope.items[$scope.ind].id).then(function(bidPrice){

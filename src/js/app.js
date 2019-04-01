@@ -68,8 +68,9 @@ dApp.service('mySev', function($q) {
                             id: item[0],
                             name: item[1],
                             description: item[2],
-                            imgPath: item[3],
+                            path: item[3],
                             inProgress: item[4],
+                            isOwner: item[5] == App.account,
                             askingPrice: item[6],
                             updatePrice: item[7],
                             bidPrice: item[9]
