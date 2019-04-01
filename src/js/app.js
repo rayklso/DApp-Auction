@@ -139,6 +139,18 @@ dApp.service('mySev', function($q) {
                 console.warn(error);
             });
             
+        },
+        
+        closeBid: function(_itemId, deferred) {
+            
+            App.contracts.Auction.deployed().then(function(instance) {
+                return instance.closeBid(_itemId, { from: App.account });
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).catch(function(error) {
+                console.warn(error);
+            });
+            
         }
         
     };
@@ -165,6 +177,12 @@ dApp.service('mySev', function($q) {
             var deferred = $q.defer();
             App.bidItem(_itemId, deferred);
             return deferred.promise;
+        },
+        
+        closeBid: function(_itemId) {
+            var deferred = $q.defer();
+            App.closeBid(_itemId, deferred);
+            return deferred.promise;        
         }
         
     };

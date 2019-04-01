@@ -1,51 +1,53 @@
 dApp.controller("pageOneCtrl", function($scope, mySev) {
 
-    $scope.items = [];
- 
+    $scope.items;
+    $scope.ind = 0;
+    
     mySev.getItems().then(function(dItems){
-        
+        $scope.items = [];
         for(var i=0; i<dItems.length; i++){
             dItems[i].promise.then(function(item){
-               
-                $scope.items.push({
-                    id: item.id.c[0],
-                    path: item.path,
-                    name: item.name,
-                    desc: item.description,
-                    isOwner: item.isOwner,
-                    askingPrice: item.askingPrice,
-                    updatePrice: item.updatePrice
-                });
-                
+                if(item.inProgress) {
+                    $scope.items.push({
+                        id: item.id.c[0],
+                        path: item.path,
+                        name: item.name,
+                        desc: item.description,
+                        isOwner: item.isOwner,
+                        askingPrice: item.askingPrice,
+                        updatePrice: item.updatePrice
+                    });
+                }
+
             });
         }
     });
     
-    AuctionItem = {
-        submitText: "Bid",
-        submitFun: null
-    }
-    
-    myItem = {
-        submitText: "Close Bid",
-        submitFun: null
-    }
-    
-    $scope.itemPopup = {}
     
     $scope.show = function(i) {
         $scope.ind = i;
         mySev.itemStatus($scope.items[i].id).then(function(item){   
             $scope.bidPrice = item.bidPrice.c[0];
-        });  
-    }
-
+        });
         
-    $scope.bid = function() {
-        mySev.bidItem($scope.items[$scope.ind].id).then(function(bidPrice){
-            $scope.bidPrice = bidPrice.c[0];
-        });     
-    }    
+        $scope.itemPopup = $scope.items[i].isOwner ? {
+            buttonColor: "btn btn-danger",
+            buttonText: "Close Bid",
+            buttonSubmit: function() {
+                mySev.closeBid($scope.items[$scope.ind].id).then(function(res){
+                    window.location.reload();
+                });
+            }
+        } : {
+            buttonColor: "btn btn-success",
+            buttonText: "Bid",
+            buttonSubmit: function() {
+                mySev.bidItem($scope.items[$scope.ind].id).then(function(bidPrice){
+                    $scope.bidPrice = bidPrice.c[0];
+                });
+            }
+        };
+    }
 
 
 //page two

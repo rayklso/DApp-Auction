@@ -24,14 +24,23 @@ contract Auction {
     event itemEvent ();
     
     // Constructor
-    constructor() public {
-        addItem("IPhone X", "IPhone X", "img/i1.png", address(0), 1000, 100);
-        addItem("Watch", "Watch", "img/i2.png", address(0), 2000, 100);
+    constructor() public {    
+        
+        itemsCount ++;
+        items[itemsCount] = Item(itemsCount, "IPhone X", "This is Apple's new IPhone!", "img/i1.png", true, address(0), 1000, 500, address(0), 1000);
+        
+        itemsCount ++;
+        items[itemsCount] = Item(itemsCount, "Watch", "This an expensive watch!", "img/i2.png", true, address(0), 2000, 1000, address(0), 2000);
+        
+        
     }
 
-    function addItem(string memory _name, string memory _description, string memory _imgPath, address _owner, uint _askingPrice, uint _updatePrice) private {
+    function newItem(string memory _name, string memory _description, string memory _imgPath, uint _askingPrice, uint _updatePrice) public {
+  
         itemsCount ++;
-        items[itemsCount] = Item(itemsCount, _name, _description, _imgPath, true, _owner, _askingPrice, _updatePrice, address(0), _askingPrice);
+        items[itemsCount] = Item(itemsCount, _name, _description, _imgPath, true, msg.sender, _askingPrice, _updatePrice, address(0), _askingPrice);
+  
+        emit itemEvent();
     }
     
     modifier checkUserType(uint _id, bool ownerOrBidder) {                        //true for owner and false bidder
@@ -46,18 +55,13 @@ contract Auction {
     function bidItem(uint _id) checkUserType(_id, false) public{
    
         require(items[_id].inProgress);
-        //require(_bidPrice > items[_id].askingPrice && _bidPrice > items[_id].bidPrice);
         
         items[_id].bidPrice += items[_id].updatePrice;
         items[_id].highestBidder = msg.sender;
-   //     emit itemEvent();
     
     }
     
-    function newItem(string memory _name, string memory _description, string memory _imgPath, uint _askingPrice, uint _updatePrice) public {
-        addItem(_name, _description, _imgPath, msg.sender, _askingPrice, _updatePrice);
-        emit itemEvent();
-    }
+
     
     
 }

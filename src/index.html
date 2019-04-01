@@ -227,7 +227,7 @@
     <!-- The Modal -->
       <div class="modal" id="itemBidModel">
             <div class="modal-dialog">
-                <form class="modal-content" ng-submit="bid()">
+                <form class="modal-content" ng-submit="itemPopup.buttonSubmit()">
                 <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">
@@ -250,7 +250,7 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-success" id="submit" value="itemPopup.submitText">
+                        <input type="submit" class="{{itemPopup.buttonColor}}" id="submit" value="{{itemPopup.buttonText}}">
                     </div>
 
 
