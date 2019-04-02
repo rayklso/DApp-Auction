@@ -64,7 +64,7 @@ contract Auction {
     
     }
     
-    function transferBidToken(uint _id) public {
+    function payItem(uint _id) public {
         require(msg.sender == items[_id].highestBidder);
         require(!items[_id].inProgress);
         
