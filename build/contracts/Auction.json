@@ -6929,12 +6929,12 @@
         }
       },
       "links": {},
-      "address": "0x674Ac3174f366Ee834FA70DFC1762891ac56c839",
-      "transactionHash": "0xfe6625273a0120307e573b2a1b413918f6ebbaecb272823d2d95143b11275fac"
+      "address": "0x59eA8Caf732c378dE1544A484Abf669C0fD8a949",
+      "transactionHash": "0x61cf114394202723d852abc13ab6d3c3fc5e480c9b77e2f8fe543df4b385c62a"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-04-02T00:32:06.549Z",
+  "updatedAt": "2019-04-02T00:47:39.818Z",
   "devdoc": {
     "methods": {}
   },
